@@ -15,6 +15,7 @@
 
     <button onclick="load()" >LOAD</button>
     <button onclick="unload()" >UNLOAD</button>
+    <input type="text" onkeyup="load2(this.value)">
 <p id="demo" ></p>
     <script>
     
@@ -27,6 +28,16 @@ function load() {
          }
      };
      xhttp.open("GET","function.php",true);
+     xhttp.send();
+}
+function load2(student_id) {
+     var xhttp=new XMLHttpRequest();
+     xhttp.onreadystatechange=function(){
+         if (this.readyState==4 && this.status==200) {
+            document.getElementById("demo").innerHTML=this.responseText;             
+         }
+     };
+     xhttp.open("GET","function.php?id="+student_id,true);
      xhttp.send();
 }
 function unload() {
