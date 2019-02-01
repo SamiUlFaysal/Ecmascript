@@ -20,6 +20,18 @@ class Db{
             return $result->fetch_all(MYSQLI_ASSOC);
         }
         return false;
+	}
+	
+	public function getById($table,$cols,$condition){
+        $sql="SELECT $cols FROM $table WHERE $condition";
+        $result=$this->conn->query($sql);
+        if($result->num_rows>0){
+            return $result->fetch_assoc();
+        }
+        else{
+            return false;
+        }
+
     }
 
 
@@ -30,20 +42,25 @@ $allst=$db->getAll("students","*");
 //print_r($allst);
 
 
-echo "<table border=\'2\' cellpadding=\'5\'>";
-echo "<tr>";
-	foreach ($allst[0] as $key=>$val) {
-		echo "<th>".ucfirst($key)."</th>";
-	}
-    echo "</tr>";
-    foreach($allst as $row){
-		echo "<tr>";
-	foreach($row as $value){
-		echo "<td> $value </td>";
-	}
-	echo "</tr>";
-	}
+// echo "<table border=\'2\' cellpadding=\'5\'>";
+// echo "<tr>";
+//  	foreach ($allst[0] as $key=>$val) {
+//  		echo "<th>".ucfirst($key)."</th>";
+//  	}
+//     echo "</tr>";
+//     foreach($allst as $row){
+//  		echo "<tr>";
+//  	foreach($row as $value){
+//  		echo "<td> $value </td>";
+//  	}
+//  	echo "</tr>";
+//  	}
 
-	echo "</table>";
+//  	echo "</table>";
+
+if(isset($_REQUEST['id'])){
+	$id=$_REQUEST['id'];
+print_r($db->getById("students","*","id=$id"));
+}
 
 ?>
