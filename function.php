@@ -1,0 +1,70 @@
+<?php
+/* $student=["mamun","faysal","abdullah","santo","sajan"];
+foreach ($student as $key=> $value) {
+    echo $value ,$key ;
+    echo "<br>";
+}
+*/
+class Db{
+	private $conn;
+	public function __construct($host,$user,$pass,$db){
+			$this->conn=new mysqli($host,$user,$pass,$db);
+			if($this->conn->connect_errno){
+				die("Connection Fail: ".$this->conn->connect_error);
+			}
+	}
+    public function getAll($table,$cols){
+        $sql="SELECT $cols FROM $table";
+        $result=$this->conn->query($sql);
+        if($result->num_rows>0){
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        return false;
+	}
+	
+	public function getAllBycondition($table,$cols,$condition){
+        $sql="SELECT $cols FROM $table WHERE $condition";
+        //echo $sql;
+        $result=$this->conn->query($sql);
+        if($result->num_rows>0){
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        else{
+            return false;
+        }
+    }
+
+        public function getById($table,$cols,$condition){
+        $sql="SELECT $cols FROM $table WHERE $condition";
+        //echo $sql;
+        $result=$this->conn->query($sql);
+        if($result->num_rows>0){
+            return $result->fetch_assoc();
+        }
+        else{
+            return false;
+        }
+    }
+}
+$db=new Db("localhost","root","","php91");
+//$allst=$db->getAll("students","*");
+//print_r($allst);
+// echo "<table border=\'2\' cellpadding=\'5\'>";
+// echo "<tr>";
+//  	foreach ($allst[0] as $key=>$val) {
+//  		echo "<th>".ucfirst($key)."</th>";
+//  	}
+//     echo "</tr>";
+//     foreach($allst as $row){
+//  		echo "<tr>";
+//  	foreach($row as $value){
+//  		echo "<td> $value </td>";
+//  	}
+//  	echo "</tr>";
+//  	}
+//  	echo "</table>";
+/*if(isset($_REQUEST['id'])){
+	$id=$_REQUEST['id'];*/
+//print_r($db->getAllBycondition("menus","*", "status='Publish'"));
+
+?>
