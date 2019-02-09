@@ -1,3 +1,3 @@
 # Ecmascript
 
-How To Show Database Table Information In A Select Option
+How To Show Database Table Information In A menu
